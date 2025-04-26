@@ -1,0 +1,24 @@
+{
+  "name": "operandio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsoa spec-and-routes && tsc",
+    "start": "node dist/src/app.js",
+    "dev": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "tsoa": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.2",
+    "joi": "^17.13.3",
+    "typescript": "^5.8.3"
+  }
+}
