@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsoa spec-and-routes && tsc",
+    "build": "npm run build:routes && npm run build:docs && npm run build:tsc",
+    "build:tsc": "tsc",
+    "build:routes": "tsoa routes",
+    "build:docs": "tsoa spec",
+    "dev": "tsoa spec-and-routes && concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
     "start": "node dist/src/app.js",
-    "dev": "",
+    "nodemon": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "express": "^5.1.0",
     "tsoa": "^6.6.0"
@@ -18,7 +19,12 @@
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.2",
+    "@types/swagger-ui-express": "^4.1.8",
+    "concurrently": "^9.1.2",
     "joi": "^17.13.3",
+    "nodemon": "^3.1.10",
+    "swagger-ui-express": "^5.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }

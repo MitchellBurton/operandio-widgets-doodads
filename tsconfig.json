@@ -25,6 +25,7 @@
     "moduleResolution": "NodeNext",
     "baseUrl": ".",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
 
     /* Experimental Options */
     "experimentalDecorators": true,

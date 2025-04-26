@@ -6,6 +6,7 @@
 	],
 	"spec": {
 		"outputDirectory": "generated",
+		"specFileBaseName": "openapi",
 		"specVersion": 3
 	},
 	"routes": {
