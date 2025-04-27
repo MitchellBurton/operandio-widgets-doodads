@@ -4,6 +4,7 @@ import {
   Body,
   Controller,
   Get,
+  Middlewares,
   Path,
   Post,
   Res,
@@ -11,8 +12,10 @@ import {
   TsoaResponse,
 } from "tsoa";
 import { Widget, WidgetCreateBody } from "../models/widget";
+import { authorizerMiddleware } from "../lib/middleware";
 
 @Route("widgets")
+@Middlewares(authorizerMiddleware)
 export class WidgetsController extends Controller {
   /**
    * Retrieves a widget by its unique identifier.
