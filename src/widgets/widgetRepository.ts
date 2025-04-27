@@ -1,4 +1,4 @@
-import { WidgetCreateBody } from "../models/widget";
+import { WidgetCreateBody } from "./widgetModels";
 import { UUID } from "../lib/types";
 import { v4 as uuidv4 } from "uuid";
 

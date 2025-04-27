@@ -1,5 +1,5 @@
 import { UUID } from "../lib/types";
-import { createWidget, findWidgetById } from "../repositories/widgetRepository";
+import { createWidget, findWidgetById } from "./widgetRepository";
 import {
   Body,
   Controller,
@@ -11,7 +11,7 @@ import {
   Route,
   TsoaResponse,
 } from "tsoa";
-import { Widget, WidgetCreateBody } from "../models/widget";
+import { Widget, WidgetCreateBody } from "./widgetModels";
 import { authorizerMiddleware } from "../lib/middleware";
 
 @Route("widgets")
