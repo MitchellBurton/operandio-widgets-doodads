@@ -7,6 +7,11 @@
 export type UUID = string;
 
 /**
+ * @isInt
+ */
+export type Int = number;
+
+/**
  * The `Expand` type is a utility type that takes an object type `T` and creates a new type with the same properties as `T`.
  * It is used as a work around for an issue with Tsoa and generic utility types in the models.
  * See: https://github.com/lukeautry/tsoa/issues/911

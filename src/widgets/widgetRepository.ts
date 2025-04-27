@@ -43,6 +43,45 @@ export const findWidgetById = (id: string) => {
 };
 
 /**
+ * Retrieves a subset of widgets from the widget database based on the specified offset and limit.
+ *
+ * @param offset - The starting index from which to retrieve widgets.
+ * @param limit - The maximum number of widgets to retrieve.
+ * @returns An array of widgets within the specified range.
+ *
+ */
+export const findAllWidgets = (offset: number, limit: number) => {
+  const widgets = Object.values(widgetDB)
+    // Sort by id to ensure consistent ordering.
+    .sort((a, b) => a.id.localeCompare(b.id))
+    // Apply offset and limit for pagination.
+    .slice(offset, offset + limit);
+  return widgets;
+};
+
+/**
+ * Finds widgets by their name from the widget database.
+ *
+ * @param name - The name or partial name of the widgets to search for.
+ * @param offset - The starting index for the search results.
+ * @param limit - The maximum number of widgets to return.
+ * @returns An array of widgets that match the specified name, limited by the offset and limit.
+ */
+export const findWidgetsByName = (
+  name: string,
+  offset: number,
+  limit: number
+) => {
+  const widgets = Object.values(widgetDB)
+    .filter((widget) => widget.name.includes(name))
+    // Sort by id to ensure consistent ordering.
+    .sort((a, b) => a.id.localeCompare(b.id))
+    // Apply offset and limit for pagination.
+    .slice(offset, offset + limit);
+  return widgets;
+};
+
+/**
  * Creates a new widget and assigns it a unique identifier.
  *
  * @param widget - An object representing the widget to be created, excluding the `id` property.

@@ -1,5 +1,10 @@
-import { UUID } from "../lib/types";
-import { createWidget, findWidgetById } from "./widgetRepository";
+import { Int, UUID } from "../lib/types";
+import {
+  createWidget,
+  findAllWidgets,
+  findWidgetById,
+  findWidgetsByName,
+} from "./widgetRepository";
 import {
   Body,
   Controller,
@@ -7,6 +12,7 @@ import {
   Middlewares,
   Path,
   Post,
+  Query,
   Res,
   Route,
   TsoaResponse,
@@ -36,6 +42,30 @@ export class WidgetsController extends Controller {
   }
 
   /**
+   * Retrieves list of all widgets.
+   * @param limit The maximum number of widgets to retrieve.
+   * @param offset The number of widgets to skip before starting to collect the result set.
+   * @param name The name of the widgets to search for.
+   */
+  @Get()
+  public async getWidgets(
+    @Query() limit: Int = 10,
+    @Query() offset: Int = 0,
+    @Query() name?: string
+  ): Promise<Widget[]> {
+    // We are just using simple offset pagination here.
+    // In a real API we would need to consider the consumer and the use cases to figure out the best pagination strategy.
+    let widgets: Widget[] = [];
+    if (name) {
+      widgets = findWidgetsByName(name, offset, limit);
+      return widgets;
+    } else {
+      widgets = findAllWidgets(offset, limit);
+    }
+    return widgets;
+  }
+
+  /**
    * Creates a new widget.
    */
   @Post()
@@ -46,5 +76,5 @@ export class WidgetsController extends Controller {
     return createWidget(requestBody);
   }
 
-  // TODO: Implement the list, and update methods
+  // TODO: Implement the update method.
 }
