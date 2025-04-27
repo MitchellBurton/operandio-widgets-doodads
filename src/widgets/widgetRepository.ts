@@ -105,12 +105,12 @@ export const createWidget = (widget: WidgetCreateBody): WidgetDBModel => {
  */
 export const updateWidget = (id: string, widget: Partial<WidgetDBModel>) => {
   const existingWidget = widgetDB[id];
-  if (existingWidget) {
-    const updatedWidget = { ...existingWidget, ...widget };
-    widgetDB[id] = updatedWidget;
-    return updatedWidget;
+  if (!existingWidget) {
+    return null;
   }
-  return null;
+  const updatedWidget = { ...existingWidget, ...widget };
+  widgetDB[id] = updatedWidget;
+  return updatedWidget;
 };
 
 /**

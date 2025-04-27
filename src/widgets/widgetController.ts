@@ -4,12 +4,14 @@ import {
   findAllWidgets,
   findWidgetById,
   findWidgetsByName,
+  updateWidget,
 } from "./widgetRepository";
 import {
   Body,
   Controller,
   Get,
   Middlewares,
+  Patch,
   Path,
   Post,
   Query,
@@ -17,7 +19,7 @@ import {
   Route,
   TsoaResponse,
 } from "tsoa";
-import { Widget, WidgetCreateBody } from "./widgetModels";
+import { Widget, WidgetCreateBody, WidgetUpdateBody } from "./widgetModels";
 import { authorizerMiddleware } from "../lib/middleware";
 
 @Route("widgets")
@@ -76,5 +78,23 @@ export class WidgetsController extends Controller {
     return createWidget(requestBody);
   }
 
-  // TODO: Implement the update method.
+  /**
+   * Updates an existing widget.
+   * @param widgetId The unique identifier of the widget to update.
+   * @param requestBody The updated widget data.
+   */
+  @Patch("{widgetId}")
+  public async updateWidget(
+    @Path() widgetId: UUID,
+    @Body() requestBody: WidgetUpdateBody,
+    @Res() notFoundResponse: TsoaResponse<404, { reason: string }>
+  ): Promise<Widget> {
+    const widget = updateWidget(widgetId, requestBody);
+    if (widget) {
+      return widget;
+    } else {
+      // Widget is not found, 404.
+      return notFoundResponse(404, { reason: "Widget not found" });
+    }
+  }
 }
