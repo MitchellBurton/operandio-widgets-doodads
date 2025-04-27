@@ -17,12 +17,14 @@ import {
   Query,
   Res,
   Route,
+  Tags,
   TsoaResponse,
 } from "tsoa";
 import { Widget, WidgetCreateBody, WidgetUpdateBody } from "./widgetModels";
 import { authorizerMiddleware } from "../lib/middleware";
 
 @Route("widgets")
+@Tags("Widgets")
 @Middlewares(authorizerMiddleware)
 export class WidgetsController extends Controller {
   /**

@@ -24,6 +24,7 @@ import { Doodad, DoodadCreateBody, DoodadUpdateBody } from "./doodadModels";
 import { authorizerMiddleware } from "../lib/middleware";
 
 @Route("doodads")
+@Tags("Doodads")
 @Middlewares(authorizerMiddleware)
 export class DoodadsController extends Controller {
   /**
