@@ -3,10 +3,12 @@ import express, {
   urlencoded,
   type Response as Response,
   type Request as Request,
+  NextFunction,
 } from "express";
 
 import { RegisterRoutes } from "../generated/routes";
 import swaggerUi from "swagger-ui-express";
+import { ValidateError } from "tsoa";
 
 const app = express();
 
@@ -27,6 +29,33 @@ app.use("/docs", swaggerUi.serve, async (_req: Request, res: Response) => {
   console.log("swaggerDocument", swaggerDocument.default);
   res.send(swaggerUi.generateHTML(swaggerDocument.default));
 });
+
+app.use(function errorHandler(
+  err: unknown,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response | void {
+  // The request failed schema validation, but we need to return a nice message rather than the stack trace.
+  if (err instanceof ValidateError) {
+    console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
+    return res.status(422).json({
+      message: "Validation Failed",
+      details: err?.fields,
+    });
+  }
+
+  // Some other, unknown error, just return a 500.
+  // This is a good place to log the error to your error tracking service.
+  if (err instanceof Error) {
+    console.error("Caught Error for", req.path, err);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+
+  next();
+} as express.ErrorRequestHandler);
 
 const port = 9000;
 express().use("/", app).listen(port);
