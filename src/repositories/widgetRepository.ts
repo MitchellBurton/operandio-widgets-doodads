@@ -1,3 +1,4 @@
+import { WidgetCreateBody } from "../models/widget";
 import { UUID } from "../lib/types";
 import { v4 as uuidv4 } from "uuid";
 
@@ -47,9 +48,7 @@ export const findWidgetById = (id: string) => {
  * @param widget - An object representing the widget to be created, excluding the `id` property.
  * @returns The newly created widget, including its generated `id`.
  */
-export const createWidget = (
-  widget: Omit<WidgetDBModel, "id">
-): WidgetDBModel => {
+export const createWidget = (widget: WidgetCreateBody): WidgetDBModel => {
   // Simulate saving to a database by adding it to the in-memory object.
   // We are using a Guid for the id, so can assume no conflicts.
   // The the real world, we would let the DB handle it.

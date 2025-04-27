@@ -5,3 +5,10 @@
  * @format uuid
  */
 export type UUID = string;
+
+/**
+ * The `Expand` type is a utility type that takes an object type `T` and creates a new type with the same properties as `T`.
+ * It is used as a work around for an issue with Tsoa and generic utility types in the models.
+ * See: https://github.com/lukeautry/tsoa/issues/911
+ */
+export type Expand<T> = { [K in keyof T]: T[K] };

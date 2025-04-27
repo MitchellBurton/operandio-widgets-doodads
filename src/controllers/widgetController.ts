@@ -10,23 +10,7 @@ import {
   Route,
   TsoaResponse,
 } from "tsoa";
-
-/**
- * Represents a widget with its associated properties.
- */
-interface Widget {
-  /** The unique identifier for the widget. */
-  id: UUID;
-  /**
-   * The name of the widget.
-   * @minLength 1 Widget names must be at least 1 character long.
-   */
-  name: string;
-  /** A brief description of the widget. */
-  description: string;
-  /** A URL for the widget's image. */
-  image: string;
-}
+import { Widget, WidgetCreateBody } from "../models/widget";
 
 @Route("widgets")
 export class WidgetsController extends Controller {
@@ -47,13 +31,17 @@ export class WidgetsController extends Controller {
     // Widget is not found, 404.
     return notFoundResponse(404, { reason: "Widget not found" });
   }
-  // TODO: Implement the list, and update methods
 
+  /**
+   * Creates a new widget.
+   */
   @Post()
   public async createWidget(
-    @Body() requestBody: Omit<Widget, "id">
+    @Body() requestBody: WidgetCreateBody
   ): Promise<Widget> {
     // The tsoa validator will check that the request body is valid.
     return createWidget(requestBody);
   }
+
+  // TODO: Implement the list, and update methods
 }
