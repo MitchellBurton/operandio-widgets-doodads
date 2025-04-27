@@ -32,7 +32,23 @@ app.use("/docs", swaggerUi.serve, async (_req: Request, res: Response) => {
   res.send(swaggerUi.generateHTML(swaggerDocument.default));
 });
 
-app.use(function errorHandler(
+/**
+ * Handles errors that occur during request processing in an Express application.
+ *
+ * @param err - The error object, which can be of any type. Typically, it is an instance of `ValidateError` or `Error`.
+ * @param req - The Express `Request` object representing the HTTP request.
+ * @param res - The Express `Response` object used to send the HTTP response.
+ * @param next - The Express `NextFunction` used to pass control to the next middleware.
+ * @returns A JSON response with an appropriate HTTP status code and error message, or calls the `next` middleware if no error is handled.
+ *
+ * @remarks
+ * - If the error is an instance of `ValidateError`, it returns a 422 status code with validation details.
+ * - If the error is an instance of `Error`:
+ *   - If the error type is `entity.parse.failed`, it returns a 400 status code with an "Invalid JSON" message.
+ *   - Otherwise, it returns a 500 status code with an "Internal Server Error" message.
+ * - If the error does not match any known type, the `next` middleware is called.
+ */
+function errorHandler(
   err: unknown,
   req: Request,
   res: Response,
@@ -65,7 +81,10 @@ app.use(function errorHandler(
   }
 
   next();
-} as express.ErrorRequestHandler);
+}
+
+// Register the error handler middleware
+app.use(errorHandler as express.ErrorRequestHandler);
 
 const port = 9000;
 express().use("/", app).listen(port);
