@@ -33,7 +33,7 @@ const widgetDB: WidgetDB = {
  * @param id - The unique identifier of the widget to retrieve.
  * @returns The widget object if found, otherwise `null`.
  */
-export const findById = (id: string) => {
+export const findWidgetById = (id: string) => {
   const widget = widgetDB[id];
   if (widget) {
     return widget;
@@ -47,7 +47,9 @@ export const findById = (id: string) => {
  * @param widget - An object representing the widget to be created, excluding the `id` property.
  * @returns The newly created widget, including its generated `id`.
  */
-export const create = (widget: Omit<WidgetDBModel, "id">): WidgetDBModel => {
+export const createWidget = (
+  widget: Omit<WidgetDBModel, "id">
+): WidgetDBModel => {
   // Simulate saving to a database by adding it to the in-memory object.
   // We are using a Guid for the id, so can assume no conflicts.
   // The the real world, we would let the DB handle it.
@@ -63,7 +65,7 @@ export const create = (widget: Omit<WidgetDBModel, "id">): WidgetDBModel => {
  * @param widget - A partial object containing the properties to update in the widget.
  * @returns The updated widget object if the widget exists, or `null` if no widget with the given ID is found.
  */
-export const update = (id: string, widget: Partial<WidgetDBModel>) => {
+export const updateWidget = (id: string, widget: Partial<WidgetDBModel>) => {
   const existingWidget = widgetDB[id];
   if (existingWidget) {
     const updatedWidget = { ...existingWidget, ...widget };
@@ -80,7 +82,7 @@ export const update = (id: string, widget: Partial<WidgetDBModel>) => {
  * @returns A boolean indicating whether the widget was successfully removed.
  *          Returns `true` if the widget existed and was removed, otherwise `false`.
  */
-export const remove = (id: string) => {
+export const deleteWidget = (id: string) => {
   const widget = widgetDB[id];
   if (widget) {
     delete widgetDB[id];
