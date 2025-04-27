@@ -22,6 +22,8 @@ app.use(json());
 
 RegisterRoutes(app);
 
+// Serve the pre-generated OpenAPI spec at /docs
+// Could also grab the spec from the build process and deploy it to a static host.
 app.use("/docs", swaggerUi.serve, async (_req: Request, res: Response) => {
   const swaggerDocument = await import("../generated/openapi.json", {
     assert: { type: "json" },
