@@ -51,6 +51,14 @@ app.use(function errorHandler(
   // This is a good place to log the error to your error tracking service.
   if (err instanceof Error) {
     console.error("Caught Error for", req.path, err);
+
+    // If the error is a JSON parse error, return a 400.
+    if ((err as any).type === "entity.parse.failed") {
+      return res.status(400).json({
+        message: "Invalid JSON",
+      });
+    }
+
     return res.status(500).json({
       message: "Internal Server Error",
     });
