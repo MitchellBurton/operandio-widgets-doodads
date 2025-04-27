@@ -1,7 +1,5 @@
 {
-	"exec": "node -r ts-node/register src/app.ts",
-	"watch": [
-		"src"
-	],
-	"ext": "ts"
+  "exec": "node -r ts-node/register src/app.ts",
+  "watch": ["src"],
+  "ext": "ts"
 }

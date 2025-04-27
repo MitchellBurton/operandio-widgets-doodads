@@ -1,14 +1,8 @@
-import express, {
-  json,
-  urlencoded,
-  type Response as Response,
-  type Request as Request,
-  NextFunction,
-} from "express";
+import express, { json, urlencoded, type Response, type Request, type NextFunction } from "express";
 
-import { RegisterRoutes } from "../generated/routes";
 import swaggerUi from "swagger-ui-express";
 import { ValidateError } from "tsoa";
+import { RegisterRoutes } from "../generated/routes";
 
 const app = express();
 
@@ -16,7 +10,7 @@ const app = express();
 app.use(
   urlencoded({
     extended: true,
-  })
+  }),
 );
 app.use(json());
 
@@ -48,12 +42,8 @@ app.use("/docs", swaggerUi.serve, async (_req: Request, res: Response) => {
  *   - Otherwise, it returns a 500 status code with an "Internal Server Error" message.
  * - If the error does not match any known type, the `next` middleware is called.
  */
-function errorHandler(
-  err: unknown,
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Response | void {
+// biome-ignore lint/suspicious/noConfusingVoidType: This fits the types of express middleware.
+function errorHandler(err: unknown, req: Request, res: Response, next: NextFunction): Response | void {
   // The request failed schema validation, but we need to return a nice message rather than the stack trace.
   if (err instanceof ValidateError) {
     console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
@@ -68,8 +58,9 @@ function errorHandler(
   if (err instanceof Error) {
     console.error("Caught Error for", req.path, err);
 
-    // If the error is a JSON parse error, return a 400.
+    // biome-ignore lint/suspicious/noExplicitAny: These error object may have a type property set on them, and we need to check it.
     if ((err as any).type === "entity.parse.failed") {
+      // If the error is a JSON parse error, return a 400.
       return res.status(400).json({
         message: "Invalid JSON",
       });

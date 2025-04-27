@@ -1,4 +1,4 @@
-import { Expand, UUID } from "../lib/types";
+import type { Expand, UUID } from "../lib/types";
 
 /**
  * Represents a widget with its associated properties.

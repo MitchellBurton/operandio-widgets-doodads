@@ -1,6 +1,6 @@
-import { DoodadCreateBody } from "./doodadModels";
-import { UUID } from "../lib/types";
 import { v4 as uuidv4 } from "uuid";
+import type { UUID } from "../lib/types";
+import type { DoodadCreateBody } from "./doodadModels";
 
 interface DoodadDBModel {
   id: UUID;
@@ -70,11 +70,7 @@ export const findAllDoodads = (offset: number, limit: number) => {
  * @param limit - The maximum number of doodads to return.
  * @returns An array of doodads that match the specified name, limited by the offset and limit.
  */
-export const findDoodadsByName = (
-  name: string,
-  offset: number,
-  limit: number
-) => {
+export const findDoodadsByName = (name: string, offset: number, limit: number) => {
   const doodads = Object.values(doodadDB)
     .filter((doodad) => doodad.name.includes(name))
     // Sort by id to ensure consistent ordering.

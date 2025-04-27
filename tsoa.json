@@ -1,15 +1,13 @@
 {
-	"entryFile": "src/app.ts",
-	"noImplicitAdditionalProperties": "throw-on-extras",
-	"controllerPathGlobs": [
-		"src/**/*Controller.ts"
-	],
-	"spec": {
-		"outputDirectory": "generated",
-		"specFileBaseName": "openapi",
-		"specVersion": 3
-	},
-	"routes": {
-		"routesDir": "generated"
-	}
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/**/*Controller.ts"],
+  "spec": {
+    "outputDirectory": "generated",
+    "specFileBaseName": "openapi",
+    "specVersion": 3
+  },
+  "routes": {
+    "routesDir": "generated"
+  }
 }

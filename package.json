@@ -10,6 +10,9 @@
     "dev": "tsoa spec-and-routes && concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
     "start": "node dist/src/app.js",
     "nodemon": "nodemon",
+    "check": "biome ci",
+    "check:changed": "biome ci --changed",
+    "check:fix": "biome check --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -18,6 +21,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.2",
     "@types/swagger-ui-express": "^4.1.8",

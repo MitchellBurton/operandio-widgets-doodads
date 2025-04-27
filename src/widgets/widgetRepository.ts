@@ -1,6 +1,6 @@
-import { WidgetCreateBody } from "./widgetModels";
-import { UUID } from "../lib/types";
 import { v4 as uuidv4 } from "uuid";
+import type { UUID } from "../lib/types";
+import type { WidgetCreateBody } from "./widgetModels";
 
 interface WidgetDBModel {
   id: UUID;
@@ -67,11 +67,7 @@ export const findAllWidgets = (offset: number, limit: number) => {
  * @param limit - The maximum number of widgets to return.
  * @returns An array of widgets that match the specified name, limited by the offset and limit.
  */
-export const findWidgetsByName = (
-  name: string,
-  offset: number,
-  limit: number
-) => {
+export const findWidgetsByName = (name: string, offset: number, limit: number) => {
   const widgets = Object.values(widgetDB)
     .filter((widget) => widget.name.includes(name))
     // Sort by id to ensure consistent ordering.
